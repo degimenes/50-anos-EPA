@@ -5,7 +5,7 @@
   <title>50 anos - Convite</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fonte bonita do Google -->
+  <!-- Fontes Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
@@ -19,55 +19,107 @@
 
     body {
       font-family: "Open Sans", Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #e9e6df;           /* cor de fundo tipo mesa */
       padding: 30px 10px;
     }
 
-    .container {
-      max-width: 700px;
+    .page-wrapper {
+      max-width: 900px;
       margin: 0 auto;
-      background-color: #ffffff;
-      border: 1px solid #e4e4e4;
-      padding: 40px 30px 30px;
-      text-align: center;
+    }
+
+    /* “Folha” de carta */
+    .carta {
+      max-width: 720px;
+      margin: 0 auto;
+      background-color: #fffdf7;           /* levemente amarelado, cara de papel */
+      border: 1px solid #ded2b8;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      padding: 40px 50px 35px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .logo-epa {
+      height: 60px;
+      width: auto;
+      transition: transform 0.2s ease;
+    }
+
+    .logo-epa:hover {
+      transform: scale(1.08);  /* expansível ao passar o mouse */
+    }
+
+    .linha-topo {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #c0b49a, transparent);
+      margin-left: 20px;
     }
 
     h1 {
       font-family: "Playfair Display", serif;
-      font-size: 46px;
-      margin-bottom: 20px;
-      color: #285020; /* verde escuro */
+      font-size: 40px;
+      color: #285020;
+      margin-bottom: 6px;
+      text-align: left;
     }
 
     .subtitulo {
-      font-size: 18px;
+      font-size: 17px;
       color: #777;
-      margin-bottom: 30px;
+      margin-bottom: 22px;
     }
 
-    .texto {
+    .corpo-texto {
       font-size: 15px;
       color: #555;
-      line-height: 1.7;
+      line-height: 1.8;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .saudacao {
+      margin-bottom: 18px;
+      font-size: 15px;
+      color: #555;
+    }
+
+    .assinatura-bloco {
+      margin-top: 28px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .assinatura-bloco strong {
+      display: block;
+      margin-top: 5px;
+    }
+
+    .separador {
+      border: none;
+      border-top: 1px dashed #d3c7ae;
+      margin: 24px 0;
+    }
+
+    .info-evento {
+      margin-top: 8px;
       margin-bottom: 10px;
     }
 
-    hr {
-      border: none;
-      border-top: 1px solid #e0e0e0;
-      margin: 30px 0;
-    }
-
     .info-linha {
-      text-align: left;
       font-size: 15px;
-      max-width: 450px;
-      margin: 8px auto;
       color: #444;
+      margin: 6px 0;
     }
 
     .info-linha span.icone {
-      font-size: 18px;
+      font-size: 17px;
       margin-right: 6px;
     }
 
@@ -75,11 +127,15 @@
       font-weight: 600;
     }
 
+    .rodape-botao {
+      text-align: center;
+      margin-top: 26px;
+    }
+
     .botao {
       display: inline-block;
-      margin-top: 25px;
-      padding: 12px 40px;
-      background-color: #285020; /* verde escuro */
+      padding: 12px 46px;
+      background-color: #285020;
       color: #ffffff;
       border-radius: 4px;
       text-decoration: none;
@@ -92,74 +148,101 @@
       background-color: #1f3f19;
     }
 
-    .rodape {
-      margin-top: 25px;
+    .rodape-frase {
+      margin-top: 24px;
       font-size: 13px;
-      color: #999;
+      color: #888;
       font-style: italic;
+      text-align: center;
     }
 
-    @media (max-width: 480px) {
-      .container {
-        padding: 30px 20px;
+    @media (max-width: 600px) {
+      .carta {
+        padding: 28px 20px 25px;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .linha-topo {
+        display: none;
       }
 
       h1 {
-        font-size: 36px;
+        font-size: 32px;
       }
 
       .subtitulo {
-        font-size: 16px;
+        font-size: 15px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>50 anos</h1>
+  <div class="page-wrapper">
+    <div class="carta">
+      <header>
+        <!-- Logo da EPA (certifique-se de ter logo-epa.png no repositório) -->
+        <img src="logo-epa.png" alt="Logo EPA" class="logo-epa">
+        <div class="linha-topo"></div>
+      </header>
 
-    <p class="subtitulo">
-      São cinco décadas de história, conquistas e inovação.
-    </p>
+      <h1>50 anos</h1>
+      <p class="subtitulo">
+        São cinco décadas de história, conquistas e inovação.
+      </p>
 
-    <p class="texto">
-      Uma trajetória construída lado a lado com parceiros e profissionais que acreditam nos mesmos valores e caminham conosco há tantos anos.
-    </p>
+      <p class="saudacao">Prezados(as),</p>
 
-    <p class="texto">
-      Essa celebração é também um momento para reafirmar o que nos move: o amanhã que almejamos nos inspira hoje para juntos torná-lo realidade.
-    </p>
+      <p class="corpo-texto">
+        Uma trajetória construída lado a lado com parceiros e profissionais que acreditam nos mesmos valores e caminham conosco há tantos anos.
+      </p>
 
-    <hr>
+      <p class="corpo-texto">
+        Essa celebração é também um momento para reafirmar o que nos move: o amanhã que almejamos nos inspira hoje para juntos torná-lo realidade.
+      </p>
 
-    <p class="info-linha">
-      <span class="icone">🗓️</span>
-      <span class="titulo">Data:</span>
-      12 de Dezembro de 2025
-    </p>
+      <hr class="separador">
 
-    <p class="info-linha">
-      <span class="icone">⏰</span>
-      <span class="titulo">Hora:</span>
-      13:00h
-    </p>
+      <div class="info-evento">
+        <p class="info-linha">
+          <span class="icone">🗓️</span>
+          <span class="titulo">Data:</span>
+          12 de Dezembro de 2025
+        </p>
 
-    <p class="info-linha">
-      <span class="icone">📍</span>
-      <span class="titulo">Local:</span>
-      Centro Empresarial ITV - Itapevi
-    </p>
+        <p class="info-linha">
+          <span class="icone">⏰</span>
+          <span class="titulo">Hora:</span>
+          13:00h
+        </p>
 
-    <hr>
+        <p class="info-linha">
+          <span class="icone">📍</span>
+          <span class="titulo">Local:</span>
+          Centro Empresarial ITV - Itapevi
+        </p>
+      </div>
 
-    <!-- Troque o link abaixo pelo link do seu formulário de confirmação, se quiser -->
-    <a class="botao" href="https://example.com/confirmar-presenca" target="_blank">
-      Confirmar Presença
-    </a>
+      <hr class="separador">
 
-    <p class="rodape">
-      Celebrando 50 anos de história e sucesso.
-    </p>
+      <div class="rodape-botao">
+        <!-- Link atualizado para o Odoo -->
+        <a class="botao" href="https://odoo.grupoepa.com.br/survey/start/ea3cd396-1690-4219-9737-595d3df9fc4d" target="_blank">
+          Confirmar Presença
+        </a>
+      </div>
+
+      <div class="assinatura-bloco">
+        <p>Contamos com a sua presença para celebrarmos juntos este marco tão especial.</p>
+      </div>
+
+      <p class="rodape-frase">
+        Celebrando 50 anos de história e sucesso.
+      </p>
+    </div>
   </div>
 </body>
 </html>
