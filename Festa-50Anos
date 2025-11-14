@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>50 anos - Convite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonte bonita do Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Open Sans", Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 30px 10px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border: 1px solid #e4e4e4;
+      padding: 40px 30px 30px;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 46px;
+      margin-bottom: 20px;
+      color: #285020; /* verde escuro */
+    }
+
+    .subtitulo {
+      font-size: 18px;
+      color: #777;
+      margin-bottom: 30px;
+    }
+
+    .texto {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e0e0e0;
+      margin: 30px 0;
+    }
+
+    .info-linha {
+      text-align: left;
+      font-size: 15px;
+      max-width: 450px;
+      margin: 8px auto;
+      color: #444;
+    }
+
+    .info-linha span.icone {
+      font-size: 18px;
+      margin-right: 6px;
+    }
+
+    .info-linha span.titulo {
+      font-weight: 600;
+    }
+
+    .botao {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 12px 40px;
+      background-color: #285020; /* verde escuro */
+      color: #ffffff;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .botao:hover {
+      background-color: #1f3f19;
+    }
+
+    .rodape {
+      margin-top: 25px;
+      font-size: 13px;
+      color: #999;
+      font-style: italic;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      .subtitulo {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>50 anos</h1>
+
+    <p class="subtitulo">
+      São cinco décadas de história, conquistas e inovação.
+    </p>
+
+    <p class="texto">
+      Uma trajetória construída lado a lado com parceiros e profissionais que acreditam nos mesmos valores e caminham conosco há tantos anos.
+    </p>
+
+    <p class="texto">
+      Essa celebração é também um momento para reafirmar o que nos move: o amanhã que almejamos nos inspira hoje para juntos torná-lo realidade.
+    </p>
+
+    <hr>
+
+    <p class="info-linha">
+      <span class="icone">🗓️</span>
+      <span class="titulo">Data:</span>
+      12 de Dezembro de 2025
+    </p>
+
+    <p class="info-linha">
+      <span class="icone">⏰</span>
+      <span class="titulo">Hora:</span>
+      13:00h
+    </p>
+
+    <p class="info-linha">
+      <span class="icone">📍</span>
+      <span class="titulo">Local:</span>
+      Centro Empresarial ITV - Itapevi
+    </p>
+
+    <hr>
+
+    <!-- Troque o link abaixo pelo link do seu formulário de confirmação, se quiser -->
+    <a class="botao" href="https://example.com/confirmar-presenca" target="_blank">
+      Confirmar Presença
+    </a>
+
+    <p class="rodape">
+      Celebrando 50 anos de história e sucesso.
+    </p>
+  </div>
+</body>
+</html>
