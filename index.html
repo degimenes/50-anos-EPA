@@ -13,8 +13,8 @@
       --verde-escuro: #163624;
       --verde-suave: #29563a;
       --dourado: #cfa861;
-      --papel: #ffffff;
       --fundo: #f4f1eb;
+      --papel: #ffffff;
     }
 
     * {
@@ -34,114 +34,45 @@
       overflow-x: hidden;
     }
 
-    .stage {
+    .wrapper {
       width: 100%;
-      max-width: 720px;
-      display: flex;
-      justify-content: center;
-      perspective: 1400px;
+      max-width: 780px;
+      padding: 12px;
     }
 
-    /* ================== ENVELOPE MINIMALISTA ================== */
-
-    .envelope {
-      position: relative;
-      width: 100%;
-      max-width: 620px;
-      height: 260px;
-      transition: transform 0.8s ease;
-    }
-
-    .envelope-shell {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    .envelope-body {
-      position: absolute;
-      inset: 40px 16px 18px 16px;
-      background: #fdfbf8;
-      border-radius: 14px;
-      border: 1px solid rgba(0,0,0,0.06);
-      box-shadow: 0 14px 26px rgba(0,0,0,0.12);
-    }
-
-    .envelope-body::before {
-      content: "";
-      position: absolute;
-      inset: 10px;
-      border-radius: 10px;
-      border: 1px solid rgba(207,168,97,0.35);
-      pointer-events: none;
-    }
-
-    /* Flap superior, discreto */
-    .envelope-flap {
-      position: absolute;
-      top: 0;
-      left: 16px;
-      right: 16px;
-      height: 120px;
-      transform-origin: top center;
-      background: linear-gradient(to bottom, #f8f5ef, #f1ece2);
-      border-radius: 16px 16px 10px 10px;
-      border: 1px solid rgba(0,0,0,0.06);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.14);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform: rotateX(0deg);
-      transition: transform 0.9s cubic-bezier(.19,1,.22,1);
-      backface-visibility: hidden;
-    }
-
-    .flap-detail {
-      width: 64%;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--dourado), transparent);
-      opacity: 0.8;
-    }
-
-    .envelope.open .envelope-flap {
-      transform: rotateX(-150deg);
-    }
-
-    /* ================== CONVITE (CARTA) ================== */
-
-    .letter {
-      position: absolute;
-      left: 50%;
-      bottom: 18px;
-      width: calc(100% - 64px);
-      max-width: 560px;
-      transform: translate(-50%, 55%);
-      opacity: 0;
-      transition: transform 0.9s ease, opacity 0.9s ease;
-      transition-delay: 0.15s;
-    }
-
-    .envelope.open .letter {
-      transform: translate(-50%, 0);
-      opacity: 1;
-    }
-
+    /* Cartão principal com bordas elegantes */
     .carta {
       position: relative;
       background: var(--papel);
-      border-radius: 16px;
-      padding: 34px 40px 30px;
-      border: 1px solid rgba(207,168,97,0.75);
+      border-radius: 20px;
+      padding: 42px 56px 34px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.12);
       overflow: hidden;
     }
 
+    /* Borda externa suave em dourado */
     .carta::before {
       content: "";
       position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(207,168,97,0.85), rgba(22,54,36,0.7));
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    /* Borda interna fina */
+    .carta::after {
+      content: "";
+      position: absolute;
       inset: 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(207,168,97,0.35);
+      border-radius: 14px;
+      border: 1px solid rgba(207,168,97,0.4);
       pointer-events: none;
     }
 
@@ -150,7 +81,7 @@
       z-index: 1;
     }
 
-    /* Logo centralizado no topo da carta */
+    /* Logo centralizado */
     .logo-area {
       text-align: center;
       margin-bottom: 18px;
@@ -158,7 +89,7 @@
 
     .logo-area img {
       max-width: 120px;
-      width: 26%;
+      width: 24%;
       height: auto;
       display: inline-block;
     }
@@ -240,33 +171,14 @@
       font-family: "Lora", serif;
     }
 
-    /* =============== RESPONSIVO =============== */
-
+    /* Responsivo */
     @media (max-width: 720px) {
-      .envelope {
-        height: 230px;
-      }
-
-      .envelope-body {
-        inset: 36px 12px 16px 12px;
-      }
-
-      .envelope-flap {
-        left: 12px;
-        right: 12px;
-        height: 110px;
-      }
-
-      .letter {
-        width: calc(100% - 44px);
-      }
-
       .carta {
-        padding: 26px 20px 24px;
-        border-radius: 14px;
+        padding: 30px 22px 24px;
+        border-radius: 18px;
       }
 
-      .carta::before {
+      .carta::after {
         inset: 10px;
       }
 
@@ -291,13 +203,7 @@
 
       .logo-area img {
         max-width: 100px;
-        width: 30%;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .envelope {
-        height: 210px;
+        width: 32%;
       }
     }
   </style>
@@ -305,71 +211,48 @@
 
 <body>
 
-  <div class="stage">
-    <div class="envelope" id="envelope">
-      <div class="envelope-shell">
-        <div class="envelope-body"></div>
-        <div class="envelope-flap">
-          <div class="flap-detail"></div>
+  <div class="wrapper">
+    <div class="carta">
+      <div class="carta-inner">
+
+        <div class="logo-area">
+          <!-- Troque o src pelo logo oficial se quiser -->
+          <img src="https://i.imgur.com/ysLOcIw.png" alt="Logo EPA">
         </div>
+
+        <h1>50 anos</h1>
+
+        <p class="subtexto">
+          São cinco décadas de história, conquistas e inovação.
+        </p>
+
+        <p class="texto">
+          Uma trajetória construída lado a lado com parceiros e profissionais que acreditam nos mesmos valores e caminham conosco há tantos anos.
+        </p>
+
+        <p class="texto">
+          Essa celebração é também um momento para reafirmar o que nos move: o amanhã que almejamos nos inspira hoje para juntos torná-lo realidade.
+        </p>
+
+        <hr>
+
+        <p class="info"><span>🗓️ Data:</span> 12 de Dezembro de 2025</p>
+        <p class="info"><span>⏰ Hora:</span> 13:00h</p>
+        <p class="info"><span>📍 Local:</span> Centro Empresarial ITV - Itapevi</p>
+
+        <hr>
+
+        <a class="botao" href="https://odoo.grupoepa.com.br/survey/start/ea3cd396-1690-4219-9737-595d3df9fc4d" target="_blank">
+          Confirmar Presença
+        </a>
+
+        <p class="rodape">
+          Celebrando 50 anos de história e sucesso.
+        </p>
+
       </div>
-
-      <!-- A CARTA (CONVITE) QUE "SAI" DE DENTRO -->
-      <div class="letter">
-        <div class="carta">
-          <div class="carta-inner">
-
-            <div class="logo-area">
-              <!-- Troque o src pelo logo oficial se quiser -->
-              <img src="https://i.imgur.com/ysLOcIw.png" alt="Logo EPA">
-            </div>
-
-            <h1>50 anos</h1>
-
-            <p class="subtexto">
-              São cinco décadas de história, conquistas e inovação.
-            </p>
-
-            <p class="texto">
-              Uma trajetória construída lado a lado com parceiros e profissionais que acreditam nos mesmos valores e caminham conosco há tantos anos.
-            </p>
-
-            <p class="texto">
-              Essa celebração é também um momento para reafirmar o que nos move: o amanhã que almejamos nos inspira hoje para juntos torná-lo realidade.
-            </p>
-
-            <hr>
-
-            <p class="info"><span>🗓️ Data:</span> 12 de Dezembro de 2025</p>
-            <p class="info"><span>⏰ Hora:</span> 13:00h</p>
-            <p class="info"><span>📍 Local:</span> Centro Empresarial ITV - Itapevi</p>
-
-            <hr>
-
-            <a class="botao" href="https://odoo.grupoepa.com.br/survey/start/ea3cd396-1690-4219-9737-595d3df9fc4d" target="_blank">
-              Confirmar Presença
-            </a>
-
-            <p class="rodape">
-              Celebrando 50 anos de história e sucesso.
-            </p>
-
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
-
-  <script>
-    // A carta abre sozinha depois de um pequeno delay
-    window.addEventListener("load", function () {
-      const envelope = document.getElementById("envelope");
-      setTimeout(() => {
-        envelope.classList.add("open");
-      }, 900);
-    });
-  </script>
 
 </body>
 </html>
