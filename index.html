@@ -1,238 +1,375 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Convite – 50 anos EPA</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Convite – 50 anos EPA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- FONTES -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Lora:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- Fontes elegantes -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Lora:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-<style>
+  <style>
+    :root {
+      --verde-escuro: #163624;
+      --verde-suave: #29563a;
+      --dourado: #cfa861;
+      --papel: #ffffff;
+      --fundo: #f4f1eb;
+    }
 
-:root {
-  --verde-escuro: #1f3d26;
-  --dourado: #cfa861;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-/* ======== RESET ======== */
-body {
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(135deg, #ece9e6, #ffffff);
-  font-family: "Inter", sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 12px;
+      background: radial-gradient(circle at top, #ffffff 0, var(--fundo) 55%, #e4ddd1 100%);
+      font-family: "Inter", sans-serif;
+      color: #333;
+      overflow-x: hidden;
+    }
 
-/* ======== ENVÓLUCRO CENTRAL ======== */
-.container {
-  position: relative;
-  width: 90%;
-  max-width: 600px;
-}
+    .stage {
+      width: 100%;
+      max-width: 720px;
+      display: flex;
+      justify-content: center;
+      perspective: 1400px;
+    }
 
-/* ======== CARTA (ANIMAÇÃO DE ABERTURA) ======== */
-.envelope {
-  width: 100%;
-  height: 260px;
-  background: #ffffff;
-  position: relative;
-  border: 2px solid var(--dourado);
-  border-radius: 10px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: 0.6s ease;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-}
+    /* ================== ENVELOPE MINIMALISTA ================== */
 
-/* Aba superior */
-.envelope .top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 55%;
-  background: var(--verde-escuro);
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  transform-origin: top;
-  transform: rotateX(0deg);
-  transition: 0.6s ease;
-}
+    .envelope {
+      position: relative;
+      width: 100%;
+      max-width: 620px;
+      height: 260px;
+      transition: transform 0.8s ease;
+    }
 
-/* Aba inferior */
-.envelope .bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 55%;
-  background: var(--verde-escuro);
-  clip-path: polygon(0 100%, 50% 0, 100% 100%);
-}
+    .envelope-shell {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
 
-/* Aba abre ao clicar */
-.envelope.open .top {
-  transform: rotateX(-180deg);
-}
+    .envelope-body {
+      position: absolute;
+      inset: 40px 16px 18px 16px;
+      background: #fdfbf8;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 14px 26px rgba(0,0,0,0.12);
+    }
 
-/* ======== CONTEÚDO DO CONVITE ======== */
-.carta {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: 0.8s ease;
-  background: #fff;
-  border-radius: 14px;
-  padding: 35px 30px;
-  margin-top: 20px;
-  border: 1px solid rgba(207,168,97,0.6);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
+    .envelope-body::before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(207,168,97,0.35);
+      pointer-events: none;
+    }
 
-.envelope.open ~ .carta {
-  opacity: 1;
-  transform: translateY(0);
-}
+    /* Flap superior, discreto */
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 16px;
+      right: 16px;
+      height: 120px;
+      transform-origin: top center;
+      background: linear-gradient(to bottom, #f8f5ef, #f1ece2);
+      border-radius: 16px 16px 10px 10px;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotateX(0deg);
+      transition: transform 0.9s cubic-bezier(.19,1,.22,1);
+      backface-visibility: hidden;
+    }
 
-/* ========= ESTILO INTERNO DO CONVITE ========= */
+    .flap-detail {
+      width: 64%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--dourado), transparent);
+      opacity: 0.8;
+    }
 
-h1 {
-  font-family: "Playfair Display", serif;
-  font-size: 42px;
-  text-align: center;
-  color: var(--verde-escuro);
-  margin-bottom: 18px;
-  letter-spacing: 1px;
-}
+    .envelope.open .envelope-flap {
+      transform: rotateX(-150deg);
+    }
 
-.subtexto {
-  text-align: center;
-  font-family: "Lora", serif;
-  font-size: 18px;
-  color: #6f6a5f;
-  margin-bottom: 35px;
-  line-height: 1.5;
-}
+    /* ================== CONVITE (CARTA) ================== */
 
-.texto {
-  font-size: 16px;
-  line-height: 1.75;
-  color: #4b463f;
-  margin-bottom: 18px;
-  font-family: "Lora", serif;
-}
+    .letter {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      width: calc(100% - 64px);
+      max-width: 560px;
+      transform: translate(-50%, 55%);
+      opacity: 0;
+      transition: transform 0.9s ease, opacity 0.9s ease;
+      transition-delay: 0.15s;
+    }
 
-hr {
-  border: none;
-  border-top: 1px solid #d7d0c4;
-  margin: 30px 0;
-}
+    .envelope.open .letter {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
 
-.info {
-  font-size: 16px;
-  margin: 10px 0;
-  color: #3d3a33;
-}
+    .carta {
+      position: relative;
+      background: var(--papel);
+      border-radius: 16px;
+      padding: 34px 40px 30px;
+      border: 1px solid rgba(207,168,97,0.75);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      overflow: hidden;
+    }
 
-.info span {
-  font-weight: 600;
-  color: var(--verde-escuro);
-}
+    .carta::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(207,168,97,0.35);
+      pointer-events: none;
+    }
 
-.botao {
-  display: block;
-  width: fit-content;
-  margin: 35px auto 0;
-  padding: 14px 50px;
-  background: var(--verde-escuro);
-  color: white;
-  font-size: 16px;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: 600;
-  border: 1px solid var(--dourado);
-  transition: 0.2s;
-}
+    .carta-inner {
+      position: relative;
+      z-index: 1;
+    }
 
-.botao:hover {
-  background: #223a1d;
-  transform: translateY(-2px);
-}
+    /* Logo centralizado no topo da carta */
+    .logo-area {
+      text-align: center;
+      margin-bottom: 18px;
+    }
 
-.rodape {
-  margin-top: 30px;
-  text-align: center;
-  font-size: 14px;
-  color: #7b7468;
-  font-style: italic;
-  font-family: "Lora", serif;
-}
+    .logo-area img {
+      max-width: 120px;
+      width: 26%;
+      height: auto;
+      display: inline-block;
+    }
 
-/* ===== RESPONSIVO ===== */
-@media (max-width: 500px) {
-  .envelope { height: 200px; }
-  h1 { font-size: 32px; }
-  .carta { padding: 25px 20px; }
-}
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 40px;
+      text-align: center;
+      color: var(--verde-escuro);
+      margin-bottom: 18px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
 
-</style>
+    .subtexto {
+      text-align: center;
+      font-family: "Lora", serif;
+      font-size: 18px;
+      color: #6f6a5f;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .texto {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #4b463f;
+      margin-bottom: 16px;
+      font-family: "Lora", serif;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba(207,168,97,0.5);
+      margin: 24px 0;
+    }
+
+    .info {
+      font-size: 16px;
+      margin: 8px 0;
+      color: #3d3a33;
+    }
+
+    .info span {
+      font-weight: 600;
+      color: var(--verde-escuro);
+    }
+
+    .botao {
+      display: block;
+      width: fit-content;
+      margin: 30px auto 0;
+      padding: 12px 42px;
+      background: var(--verde-escuro);
+      color: #ffffff;
+      font-size: 14px;
+      text-decoration: none;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border: 1px solid rgba(207,168,97,0.9);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .botao:hover {
+      background: var(--verde-suave);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.22);
+    }
+
+    .rodape {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #7b7468;
+      font-style: italic;
+      font-family: "Lora", serif;
+    }
+
+    /* =============== RESPONSIVO =============== */
+
+    @media (max-width: 720px) {
+      .envelope {
+        height: 230px;
+      }
+
+      .envelope-body {
+        inset: 36px 12px 16px 12px;
+      }
+
+      .envelope-flap {
+        left: 12px;
+        right: 12px;
+        height: 110px;
+      }
+
+      .letter {
+        width: calc(100% - 44px);
+      }
+
+      .carta {
+        padding: 26px 20px 24px;
+        border-radius: 14px;
+      }
+
+      .carta::before {
+        inset: 10px;
+      }
+
+      h1 {
+        font-size: 30px;
+        letter-spacing: 0.06em;
+      }
+
+      .subtexto {
+        font-size: 16px;
+      }
+
+      .texto {
+        font-size: 15px;
+      }
+
+      .botao {
+        width: 100%;
+        text-align: center;
+        padding-inline: 22px;
+      }
+
+      .logo-area img {
+        max-width: 100px;
+        width: 30%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .envelope {
+        height: 210px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
+  <div class="stage">
+    <div class="envelope" id="envelope">
+      <div class="envelope-shell">
+        <div class="envelope-body"></div>
+        <div class="envelope-flap">
+          <div class="flap-detail"></div>
+        </div>
+      </div>
 
-  <!-- ENVELOPE -->
-  <div class="envelope" onclick="abrirEnvelope()">
-    <div class="top"></div>
-    <div class="bottom"></div>
+      <!-- A CARTA (CONVITE) QUE "SAI" DE DENTRO -->
+      <div class="letter">
+        <div class="carta">
+          <div class="carta-inner">
+
+            <div class="logo-area">
+              <!-- Troque o src pelo logo oficial se quiser -->
+              <img src="https://i.imgur.com/ysLOcIw.png" alt="Logo EPA">
+            </div>
+
+            <h1>50 anos</h1>
+
+            <p class="subtexto">
+              São cinco décadas de história, conquistas e inovação.
+            </p>
+
+            <p class="texto">
+              Uma trajetória construída lado a lado com parceiros e profissionais que acreditam nos mesmos valores e caminham conosco há tantos anos.
+            </p>
+
+            <p class="texto">
+              Essa celebração é também um momento para reafirmar o que nos move: o amanhã que almejamos nos inspira hoje para juntos torná-lo realidade.
+            </p>
+
+            <hr>
+
+            <p class="info"><span>🗓️ Data:</span> 12 de Dezembro de 2025</p>
+            <p class="info"><span>⏰ Hora:</span> 13:00h</p>
+            <p class="info"><span>📍 Local:</span> Centro Empresarial ITV - Itapevi</p>
+
+            <hr>
+
+            <a class="botao" href="https://odoo.grupoepa.com.br/survey/start/ea3cd396-1690-4219-9737-595d3df9fc4d" target="_blank">
+              Confirmar Presença
+            </a>
+
+            <p class="rodape">
+              Celebrando 50 anos de história e sucesso.
+            </p>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
-  <!-- CARTA APARECE AQUI -->
-  <div class="carta">
-
-    <h1>50 anos</h1>
-
-    <p class="subtexto">
-      São cinco décadas de história, conquistas e inovação.
-    </p>
-
-    <p class="texto">
-      Uma trajetória construída lado a lado com parceiros e profissionais que acreditam nos mesmos valores e caminham conosco há tantos anos.
-    </p>
-
-    <p class="texto">
-      Essa celebração é também um momento para reafirmar o que nos move: o amanhã que almejamos nos inspira hoje para juntos torná-lo realidade.
-    </p>
-
-    <hr>
-
-    <p class="info"><span>🗓️ Data:</span> 12 de Dezembro de 2025</p>
-    <p class="info"><span>⏰ Hora:</span> 13:00h</p>
-    <p class="info"><span>📍 Local:</span> Centro Empresarial ITV - Itapevi</p>
-
-    <hr>
-
-    <a class="botao" href="https://odoo.grupoepa.com.br/survey/start/ea3cd396-1690-4219-9737-595d3df9fc4d" target="_blank">
-      Confirmar Presença
-    </a>
-
-    <p class="rodape">
-      Celebrando 50 anos de história e sucesso.
-    </p>
-
-  </div>
-
-</div>
-
-<script>
-function abrirEnvelope() {
-  document.querySelector('.envelope').classList.toggle('open');
-}
-</script>
+  <script>
+    // A carta abre sozinha depois de um pequeno delay
+    window.addEventListener("load", function () {
+      const envelope = document.getElementById("envelope");
+      setTimeout(() => {
+        envelope.classList.add("open");
+      }, 900);
+    });
+  </script>
 
 </body>
 </html>
