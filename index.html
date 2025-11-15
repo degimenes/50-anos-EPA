@@ -1,453 +1,238 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Convite – 50 anos EPA</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Convite – 50 anos EPA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fontes elegantes -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Lora:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- FONTES -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Lora:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --verde-escuro: #163624;
-      --verde-suave: #2e5b3a;
-      --dourado: #cfa861;
-      --fundo-suave: #f6f3eb;
-    }
+<style>
 
-    * {
-      box-sizing: border-box;
-    }
+:root {
+  --verde-escuro: #1f3d26;
+  --dourado: #cfa861;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "Inter", sans-serif;
-      color: #333;
-      background: radial-gradient(circle at top, #ffffff 0, var(--fundo-suave) 55%, #e6ded0 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 32px 16px;
-      overflow-x: hidden;
-      transition: background 0.8s ease;
-    }
+/* ======== RESET ======== */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #ece9e6, #ffffff);
+  font-family: "Inter", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-    /* ========== SPLASH DO LOGO (FULL SCREEN) ========== */
+/* ======== ENVÓLUCRO CENTRAL ======== */
+.container {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+}
 
-    .splash {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at top, #ffffff 0, #f0ebe0 60%, #e3d7c2 100%);
-      z-index: 10;
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
+/* ======== CARTA (ANIMAÇÃO DE ABERTURA) ======== */
+.envelope {
+  width: 100%;
+  height: 260px;
+  background: #ffffff;
+  position: relative;
+  border: 2px solid var(--dourado);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.6s ease;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
 
-    .splash-inner {
-      position: relative;
-      text-align: center;
-      animation: splashZoom 1.6s ease forwards;
-    }
+/* Aba superior */
+.envelope .top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 55%;
+  background: var(--verde-escuro);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top;
+  transform: rotateX(0deg);
+  transition: 0.6s ease;
+}
 
-    .splash-ring {
-      position: absolute;
-      inset: -40px;
-      border-radius: 999px;
-      border: 1px solid rgba(207,168,97,0.55);
-      opacity: 0;
-      animation: ringIn 1.4s ease forwards 0.3s;
-    }
+/* Aba inferior */
+.envelope .bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 55%;
+  background: var(--verde-escuro);
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+}
 
-    .splash img {
-      width: 210px;
-      max-width: 60vw;
-      opacity: 0;
-      animation: logoFadeIn 1s ease forwards 0.25s;
-    }
+/* Aba abre ao clicar */
+.envelope.open .top {
+  transform: rotateX(-180deg);
+}
 
-    .splash-tagline {
-      margin-top: 18px;
-      font-family: "Lora", serif;
-      font-size: 16px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--verde-escuro);
-      opacity: 0;
-      animation: taglineIn 1s ease forwards 0.7s;
-    }
+/* ======== CONTEÚDO DO CONVITE ======== */
+.carta {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 0.8s ease;
+  background: #fff;
+  border-radius: 14px;
+  padding: 35px 30px;
+  margin-top: 20px;
+  border: 1px solid rgba(207,168,97,0.6);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
 
-    @keyframes splashZoom {
-      0%   { transform: scale(0.75); }
-      60%  { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
+.envelope.open ~ .carta {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-    @keyframes ringIn {
-      0%   { opacity: 0; transform: scale(0.8); }
-      100% { opacity: 1; transform: scale(1); }
-    }
+/* ========= ESTILO INTERNO DO CONVITE ========= */
 
-    @keyframes logoFadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 42px;
+  text-align: center;
+  color: var(--verde-escuro);
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+}
 
-    @keyframes taglineIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+.subtexto {
+  text-align: center;
+  font-family: "Lora", serif;
+  font-size: 18px;
+  color: #6f6a5f;
+  margin-bottom: 35px;
+  line-height: 1.5;
+}
 
-    /* Quando for para esconder o splash */
-    body.mostrar-convite .splash {
-      opacity: 0;
-      transform: scale(1.03);
-      pointer-events: none;
-    }
+.texto {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #4b463f;
+  margin-bottom: 18px;
+  font-family: "Lora", serif;
+}
 
-    /* ========== CONVITE ========== */
+hr {
+  border: none;
+  border-top: 1px solid #d7d0c4;
+  margin: 30px 0;
+}
 
-    .carta-wrapper {
-      max-width: 820px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.9s ease, transform 0.9s ease;
-    }
+.info {
+  font-size: 16px;
+  margin: 10px 0;
+  color: #3d3a33;
+}
 
-    body.mostrar-convite .carta-wrapper {
-      opacity: 1;
-      transform: translateY(0);
-    }
+.info span {
+  font-weight: 600;
+  color: var(--verde-escuro);
+}
 
-    .carta {
-      position: relative;
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 52px 60px 42px;
-      border: 1px solid rgba(207,168,97,0.7);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
-      overflow: hidden;
-    }
+.botao {
+  display: block;
+  width: fit-content;
+  margin: 35px auto 0;
+  padding: 14px 50px;
+  background: var(--verde-escuro);
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  border: 1px solid var(--dourado);
+  transition: 0.2s;
+}
 
-    /* Borda interna fina dourada */
-    .carta::before {
-      content: "";
-      position: absolute;
-      inset: 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(207,168,97,0.35);
-      pointer-events: none;
-    }
+.botao:hover {
+  background: #223a1d;
+  transform: translateY(-2px);
+}
 
-    /* Luz suave em verde/dourado */
-    .carta::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at top left, rgba(207,168,97,0.18), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(22,54,36,0.12), transparent 55%);
-      mix-blend-mode: soft-light;
-      opacity: 0.85;
-      pointer-events: none;
-    }
+.rodape {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 14px;
+  color: #7b7468;
+  font-style: italic;
+  font-family: "Lora", serif;
+}
 
-    .carta-inner {
-      position: relative;
-      z-index: 1;
-    }
+/* ===== RESPONSIVO ===== */
+@media (max-width: 500px) {
+  .envelope { height: 200px; }
+  h1 { font-size: 32px; }
+  .carta { padding: 25px 20px; }
+}
 
-    .marca-topo {
-      text-align: center;
-      font-family: "Lora", serif;
-      font-size: 13px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--verde-escuro);
-      margin-bottom: 16px;
-    }
-
-    .divisor-fino {
-      width: 70px;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--dourado), transparent);
-      margin: 0 auto 26px;
-    }
-
-    h1 {
-      font-family: "Playfair Display", serif;
-      font-size: 40px;
-      text-align: center;
-      color: var(--verde-escuro);
-      margin: 0;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .tag-anos {
-      text-align: center;
-      font-family: "Lora", serif;
-      font-size: 18px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--dourado);
-      margin-top: 10px;
-      margin-bottom: 30px;
-    }
-
-    .subtexto {
-      text-align: center;
-      font-family: "Lora", serif;
-      font-size: 18px;
-      color: #6b6458;
-      margin-bottom: 32px;
-      line-height: 1.7;
-    }
-
-    .texto {
-      font-size: 16px;
-      line-height: 1.9;
-      color: #49433a;
-      margin-bottom: 16px;
-      font-family: "Lora", serif;
-    }
-
-    .texto-destaque {
-      font-style: italic;
-      color: var(--verde-escuro);
-    }
-
-    hr {
-      border: none;
-      border-top: 1px solid rgba(207,168,97,0.55);
-      margin: 26px 0 24px;
-    }
-
-    .grid-info {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 10px 28px;
-      align-items: start;
-    }
-
-    .info {
-      font-size: 15px;
-      color: #3b352c;
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-    }
-
-    .info .icone {
-      font-size: 18px;
-      line-height: 1.2;
-      margin-top: 1px;
-    }
-
-    .info span.label {
-      font-weight: 600;
-      color: var(--verde-escuro);
-    }
-
-    .botao {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin: 32px auto 0;
-      padding: 14px 56px;
-      background: var(--verde-escuro);
-      color: #ffffff;
-      font-size: 14px;
-      text-decoration: none;
-      border-radius: 999px;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      border: 1px solid rgba(207,168,97,0.9);
-      box-shadow: 0 12px 26px rgba(0,0,0,0.18);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-    }
-
-    .botao span.seta {
-      font-size: 16px;
-      transform: translateY(1px);
-      transition: transform 0.18s ease;
-    }
-
-    .botao:hover {
-      background: var(--verde-suave);
-      transform: translateY(-2px);
-      box-shadow: 0 16px 32px rgba(0,0,0,0.22);
-    }
-
-    .botao:hover span.seta {
-      transform: translate(3px, 1px);
-    }
-
-    .rodape {
-      margin-top: 24px;
-      text-align: center;
-      font-size: 14px;
-      color: #7b7468;
-      font-style: italic;
-      font-family: "Lora", serif;
-    }
-
-    .rodape span {
-      color: var(--dourado);
-    }
-
-    @media (max-width: 720px) {
-      body {
-        padding: 20px 10px;
-      }
-
-      .carta {
-        padding: 32px 22px 28px;
-        border-radius: 18px;
-      }
-
-      .carta::before {
-        inset: 10px;
-      }
-
-      h1 {
-        font-size: 30px;
-        letter-spacing: 0.06em;
-      }
-
-      .tag-anos {
-        font-size: 14px;
-        margin-bottom: 24px;
-      }
-
-      .subtexto {
-        font-size: 16px;
-      }
-
-      .texto {
-        font-size: 15px;
-      }
-
-      .grid-info {
-        grid-template-columns: 1fr;
-      }
-
-      .botao {
-        width: 100%;
-        padding-inline: 26px;
-      }
-
-      .splash img {
-        width: 170px;
-      }
-    }
-  </style>
+</style>
 </head>
 
 <body>
 
-  <!-- TELA INICIAL: LOGO CENTRALIZADO COM ZOOM -->
-  <div class="splash">
-    <div class="splash-inner">
-      <div class="splash-ring"></div>
-      <!-- Troque o src pelo logo oficial se quiser -->
-      <img src="https://i.imgur.com/ysLOcIw.png" alt="Logo EPA">
-      <div class="splash-tagline">50 anos de excelência</div>
-    </div>
+<div class="container">
+
+  <!-- ENVELOPE -->
+  <div class="envelope" onclick="abrirEnvelope()">
+    <div class="top"></div>
+    <div class="bottom"></div>
   </div>
 
-  <!-- CONVITE -->
-  <div class="carta-wrapper">
-    <div class="carta">
-      <div class="carta-inner">
+  <!-- CARTA APARECE AQUI -->
+  <div class="carta">
 
-        <div class="marca-topo">Grupo EPA Convida</div>
-        <div class="divisor-fino"></div>
+    <h1>50 anos</h1>
 
-        <h1>Comemoração 50 anos</h1>
-        <div class="tag-anos">Uma trajetória de confiança e inovação</div>
+    <p class="subtexto">
+      São cinco décadas de história, conquistas e inovação.
+    </p>
 
-        <p class="subtexto">
-          Celebrar 50 anos é reconhecer cada passo, cada parceria e cada pessoa que fez parte desta história.
-        </p>
+    <p class="texto">
+      Uma trajetória construída lado a lado com parceiros e profissionais que acreditam nos mesmos valores e caminham conosco há tantos anos.
+    </p>
 
-        <p class="texto">
-          Ao longo de cinco décadas, construímos relacionamentos sólidos, vencemos desafios e evoluímos sempre guiados por ética, compromisso e visão de futuro.
-        </p>
+    <p class="texto">
+      Essa celebração é também um momento para reafirmar o que nos move: o amanhã que almejamos nos inspira hoje para juntos torná-lo realidade.
+    </p>
 
-        <p class="texto texto-destaque">
-          Este momento é um convite para olhar para trás com orgulho e, principalmente, para o amanhã com entusiasmo — porque ele continua sendo o que nos inspira hoje.
-        </p>
+    <hr>
 
-        <hr>
+    <p class="info"><span>🗓️ Data:</span> 12 de Dezembro de 2025</p>
+    <p class="info"><span>⏰ Hora:</span> 13:00h</p>
+    <p class="info"><span>📍 Local:</span> Centro Empresarial ITV - Itapevi</p>
 
-        <div class="grid-info">
-          <div class="info">
-            <span class="icone">🗓️</span>
-            <div>
-              <span class="label">Data</span><br>
-              12 de dezembro de 2025
-            </div>
-          </div>
+    <hr>
 
-          <div class="info">
-            <span class="icone">⏰</span>
-            <div>
-              <span class="label">Horário</span><br>
-              A partir das 13h00
-            </div>
-          </div>
+    <a class="botao" href="https://odoo.grupoepa.com.br/survey/start/ea3cd396-1690-4219-9737-595d3df9fc4d" target="_blank">
+      Confirmar Presença
+    </a>
 
-          <div class="info">
-            <span class="icone">📍</span>
-            <div>
-              <span class="label">Local</span><br>
-              Centro Empresarial ITV – Itapevi
-            </div>
-          </div>
+    <p class="rodape">
+      Celebrando 50 anos de história e sucesso.
+    </p>
 
-          <div class="info">
-            <span class="icone">🎉</span>
-            <div>
-              <span class="label">Ocasião</span><br>
-              Celebração dos 50 anos EPA com convidados especiais
-            </div>
-          </div>
-        </div>
-
-        <hr>
-
-        <a class="botao" href="https://odoo.grupoepa.com.br/survey/start/ea3cd396-1690-4219-9737-595d3df9fc4d" target="_blank">
-          Confirmar presença
-          <span class="seta">➜</span>
-        </a>
-
-        <p class="rodape">
-          <span>50 anos</span> de história, confiança e resultados compartilhados.
-        </p>
-
-      </div>
-    </div>
   </div>
 
-  <script>
-    // Tempo em ms em que o logo fica em destaque antes de revelar o convite
-    const TEMPO_SPLASH = 2200;
+</div>
 
-    setTimeout(() => {
-      document.body.classList.add('mostrar-convite');
-    }, TEMPO_SPLASH);
-  </script>
+<script>
+function abrirEnvelope() {
+  document.querySelector('.envelope').classList.toggle('open');
+}
+</script>
 
 </body>
 </html>
