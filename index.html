@@ -11,10 +11,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Lora:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --verde-escuro: #1f3d26;
+      --verde-suave: #3c6b3a;
+      --dourado: #c9a455;
+      --bege-fundo: #f6f2e9;
+    }
+
     body {
       margin: 0;
       padding: 40px 20px;
-      background: linear-gradient(135deg, #ece9e6, #ffffff);
+      background: radial-gradient(circle at top, #ffffff 0, var(--bege-fundo) 55%, #ece7db 100%);
       font-family: "Inter", sans-serif;
       color: #333;
       overflow-x: hidden;
@@ -25,13 +32,16 @@
       width: 100%;
       text-align: center;
       margin-top: 40px;
-      animation: zoomIn 1.8s ease forwards;
+      animation: zoomIn 1.6s ease forwards;
+      will-change: transform, opacity;
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
     .logo-container img {
-      width: 180px;
+      width: 190px;
+      max-width: 60vw;
       opacity: 0;
-      animation: fadeIn 1s ease forwards;
+      animation: logoFadeIn 1s ease forwards;
       animation-delay: 0.3s;
     }
 
@@ -41,25 +51,34 @@
       100% { transform: scale(1); opacity: 1; }
     }
 
-    @keyframes fadeIn {
+    @keyframes logoFadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
 
-    /* Convite escondido inicialmente */
+    /* Logo desaparece depois */
+    body.esconder-logo .logo-container {
+      opacity: 0;
+      transform: scale(0.8);
+      pointer-events: none;
+    }
+
+    /* CONVITE – começa oculto */
     .carta {
       opacity: 0;
-      transform: translateY(20px);
-      transition: 1s ease;
-      transition-delay: 1.8s;
+      transform: translateY(24px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+      transition-delay: 0.3s;
+
       max-width: 750px;
-      margin: auto;
-      background: #fffdf8;
-      border-radius: 12px;
+      margin: 40px auto 0;
+      background: #ffffff;
+      border-radius: 16px;
       padding: 55px 55px 45px;
-      border: 1px solid #e7dfcd;
-      box-shadow: 0px 8px 25px rgba(0,0,0,0.08);
+      border: 1px solid rgba(201, 164, 85, 0.45); /* dourado delicado */
+      box-shadow: 0px 18px 40px rgba(0,0,0,0.08);
       position: relative;
+      overflow: hidden;
     }
 
     body.mostrar-convite .carta {
@@ -70,20 +89,39 @@
     .carta:before {
       content: "";
       position: absolute;
-      top: 0; bottom: 0; left: 0; right: 0;
-      border-radius: 12px;
-      background: url('https://i.imgur.com/cZpPzLk.png');
-      opacity: 0.06;
+      inset: 0;
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, rgba(201,164,85,0.09), transparent 55%),
+        linear-gradient(315deg, rgba(31,61,38,0.08), transparent 50%);
+      opacity: 0.85;
       pointer-events: none;
+      mix-blend-mode: soft-light;
+    }
+
+    .carta-inner {
+      position: relative;
+      z-index: 1;
     }
 
     h1 {
       font-family: "Playfair Display", serif;
       font-size: 46px;
       text-align: center;
-      color: #2c4a26;
-      margin-bottom: 18px;
-      letter-spacing: 1px;
+      color: var(--verde-escuro);
+      margin-bottom: 8px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .tag-anos {
+      text-align: center;
+      font-family: "Lora", serif;
+      font-size: 18px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dourado);
+      margin-bottom: 26px;
     }
 
     .subtexto {
@@ -92,12 +130,12 @@
       font-size: 18px;
       color: #6f6a5f;
       margin-bottom: 35px;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .texto {
       font-size: 16px;
-      line-height: 1.75;
+      line-height: 1.8;
       color: #4b463f;
       margin-bottom: 18px;
       font-family: "Lora", serif;
@@ -105,108 +143,22 @@
 
     hr {
       border: none;
-      border-top: 1px solid #d7d0c4;
-      margin: 30px 0;
+      border-top: 1px solid rgba(201,164,85,0.55);
+      margin: 28px 0;
     }
 
     .info {
       font-size: 16px;
       margin: 10px 0;
       color: #3d3a33;
+      display: flex;
+      gap: 6px;
+      align-items: center;
     }
 
     .info span {
       font-weight: 600;
-      color: #2c4a26;
+      color: var(--verde-escuro);
     }
 
-    .botao {
-      display: block;
-      width: fit-content;
-      margin: 35px auto 0;
-      padding: 14px 50px;
-      background: #2c4a26;
-      color: white;
-      font-size: 16px;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: 600;
-      transition: 0.2s;
-    }
-
-    .botao:hover {
-      background: #223a1d;
-      transform: translateY(-2px);
-    }
-
-    .rodape {
-      margin-top: 30px;
-      text-align: center;
-      font-size: 14px;
-      color: #7b7468;
-      font-style: italic;
-      font-family: "Lora", serif;
-    }
-
-    @media (max-width: 600px) {
-      .carta {
-        padding: 35px 25px;
-      }
-      h1 {
-        font-size: 36px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- Logo que aparece primeiro -->
-  <div class="logo-container">
-    <img src="https://i.imgur.com/ysLOcIw.png" alt="Logo EPA">
-  </div>
-
-  <!-- Convite que aparece depois -->
-  <div class="carta">
-
-    <h1>50 anos</h1>
-
-    <p class="subtexto">
-      São cinco décadas de história, conquistas e inovação.
-    </p>
-
-    <p class="texto">
-      Uma trajetória construída lado a lado com parceiros e profissionais que acreditam nos mesmos valores e caminham conosco há tantos anos.
-    </p>
-
-    <p class="texto">
-      Essa celebração é também um momento para reafirmar o que nos move: o amanhã que almejamos nos inspira hoje para juntos torná-lo realidade.
-    </p>
-
-    <hr>
-
-    <p class="info"><span>🗓️ Data:</span> 12 de Dezembro de 2025</p>
-    <p class="info"><span>⏰ Hora:</span> 13:00h</p>
-    <p class="info"><span>📍 Local:</span> Centro Empresarial ITV - Itapevi</p>
-
-    <hr>
-
-    <a class="botao" href="https://odoo.grupoepa.com.br/survey/start/ea3cd396-1690-4219-9737-595d3df9fc4d" target="_blank">
-      Confirmar Presença
-    </a>
-
-    <p class="rodape">
-      Celebrando 50 anos de história e sucesso.
-    </p>
-
-  </div>
-
-  <script>
-    // Mostra o convite após o tempo da animação do logo
-    setTimeout(() => {
-      document.body.classList.add('mostrar-convite');
-    }, 1800); 
-  </script>
-
-</body>
-</html>
+    .icone {
